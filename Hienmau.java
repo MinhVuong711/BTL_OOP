@@ -306,7 +306,10 @@ class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	public boolean authenticate(String password) {
+        return this.password.equals(password);
+    }
+	
 	@Override
 	public String toString() {
 		return "Admin [username=" + username + ", password=" + password + "]";
