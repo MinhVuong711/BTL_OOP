@@ -1,5 +1,6 @@
 package oopPTIT;
 
+import java.util.List;
 import java.util.Scanner;
 
 class BloodDonor {
@@ -75,11 +76,87 @@ class BloodDonor {
 		this.bloodType = bloodType;
 	}
 
+	@Override
+	public String toString() {
+		return "BloodDonor [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", date=" + date
+				+ ", bloodType=" + bloodType + "]";
+	}
+
 }
 
 class BloodEvent {
-	// private String
+	private int eventID;
+	private String nameEvent;
+	private String location;
+	private String date;
+	private List<BloodDonor> participants;
+
+	BloodEvent(int eventID, String nameEvent, String location, String date, List<BloodDonor> participants) {
+		this.eventID = eventID;
+		this.nameEvent = nameEvent;
+		this.location = location;
+		this.date = date;
+		this.participants = participants;
+	}
+
+	public void chuanHoaDate() {
+		StringBuilder sb = new StringBuilder(date);
+		if (sb.charAt(1) == '/') {
+			sb.insert(0, "0");
+		}
+		if (sb.charAt(4) == '/') {
+			sb.insert(3, "0");
+		}
+	}
+
+	public int getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(int eventID) {
+		this.eventID = eventID;
+	}
+
+	public String getName() {
+		return nameEvent;
+	}
+
+	public void setName(String name) {
+		this.nameEvent = nameEvent;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public List<BloodDonor> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(List<BloodDonor> participants) {
+		this.participants = participants;
+	}
+
+	@Override
+	public String toString() {
+		return "BloodEvent [eventID=" + eventID + ", nameEvent=" + nameEvent + ", location=" + location + ", date="
+				+ date + ", participants=" + participants + "]";
+	}
 }
+
+//class 
 
 public class Hienmau {
 	public static void main(String[] args) {
