@@ -87,14 +87,12 @@ class BloodDonor { // ThongTin_Donor
 }
 
 class BloodEvent { // ThongTin_Event_Hienmau_Dangtochuc
-	private int eventID;
 	private String nameEvent;
 	private String location;
 	private String date;
 	private List<BloodDonor> participants;
 
-	BloodEvent(int eventID, String nameEvent, String location, String date, List<BloodDonor> participants) {
-		this.eventID = eventID;
+	BloodEvent(String nameEvent, String location, String date, List<BloodDonor> participants) {
 		this.nameEvent = nameEvent;
 		this.location = location;
 		this.date = date;
@@ -109,14 +107,6 @@ class BloodEvent { // ThongTin_Event_Hienmau_Dangtochuc
 		if (sb.charAt(4) == '/') {
 			sb.insert(3, "0");
 		}
-	}
-
-	public int getEventID() {
-		return eventID;
-	}
-
-	public void setEventID(int eventID) {
-		this.eventID = eventID;
 	}
 
 	public String getName() {
@@ -153,8 +143,8 @@ class BloodEvent { // ThongTin_Event_Hienmau_Dangtochuc
 
 	@Override
 	public String toString() {
-		return "BloodEvent [eventID=" + eventID + ", nameEvent=" + nameEvent + ", location=" + location + ", date="
-				+ date + ", participants=" + participants + "]";
+		return "BloodEvent [nameEvent=" + nameEvent + ", location=" + location + ", date=" + date + ", participants="
+				+ participants + "]";
 	}
 }
 
@@ -195,8 +185,8 @@ class Appointment { // Lich_Hienmau_Đã_Đặt
 
 	@Override
 	public String toString() {
-		return "Appointment [id=" + id + ", user=" + user + ", appointmentTime=" + appointmentTime
-				+ ", statusAppointment=" + statusAppointment + "]";
+		return "Appointment [user=" + user + ", appointmentTime=" + appointmentTime + ", statusAppointment="
+				+ statusAppointment + "]";
 	}
 }
 
