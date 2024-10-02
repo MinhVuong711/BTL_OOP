@@ -10,14 +10,6 @@ class BloodDonor {
 	private String date;
 	private String bloodType;
 
-	BloodDonor() {
-		this.id = "";
-		this.name = "";
-		this.phoneNumber = "";
-		this.date = "";
-		this.bloodType = "";
-	}
-
 	BloodDonor(String id, String name, String phoneNumber, String date, String bloodType) {
 		this.id = id;
 		this.name = name;
