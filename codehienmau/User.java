@@ -1,5 +1,10 @@
 package codehienmau;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +17,10 @@ public class User {
 	private String dateOfBirth;
 	private String phoneNumber;
 
-	// List người dùng đã đăng ký
+	private static final String FILE_NAME = "nhap.txt";
 	private static List<User> users = new ArrayList<>();
 
-	User() {
-	}
-
-	User(String userId, String name, String email, String password, String bloodType, String dateOfBirth,
+	public User(String userId, String name, String email, String password, String bloodType, String dateOfBirth,
 			String phoneNumber) {
 		this.userId = userId;
 		this.name = name;
@@ -27,44 +29,6 @@ public class User {
 		this.bloodType = bloodType;
 		this.dateOfBirth = dateOfBirth;
 		this.phoneNumber = phoneNumber;
-	}
-
-	public void register() {
-		for (User user : users) {
-			if (user.getEmail().equals(this.email)) {
-				System.out.println("Email này đã được sử dụng.");
-				return;
-			}
-		}
-		users.add(this);
-		System.out.println("Đăng ký thành công!");
-	}
-
-	public static User login(String email, String password) {
-		for (User user : users) {
-			if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-				System.out.println("Đăng nhập thành công!");
-				return user;
-			}
-		}
-		System.out.println("Email hoặc mật khẩu không đúng.");
-		return null;
-	}
-
-	public void updateProfile(String name, String email, String bloodType, String dateOfBirth, String phoneNumber) {
-		this.name = name;
-		this.email = email;
-		this.bloodType = bloodType;
-		this.dateOfBirth = dateOfBirth;
-		this.phoneNumber = phoneNumber;
-		System.out.println("Cập nhật thông tin thành công!");
-	}
-
-	@Override
-	public String toString() {
-		return "User{" + "userId='" + userId + '\'' + ", name='" + name + '\'' + ", email='" + email + '\''
-				+ ", bloodType='" + bloodType + '\'' + ", dateOfBirth='" + dateOfBirth + '\'' + ", phoneNumber='"
-				+ phoneNumber + '\'' + '}';
 	}
 
 	public String getUserId() {
@@ -93,6 +57,62 @@ public class User {
 
 	public String getPhoneNumber() {
 		return phoneNumber;
+	}
+
+	public static List<User> getUsers() {
+		return users;
+	}
+
+	public static void loadUsersFromFile() {
+		users.clear();
+		try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",");
+				if (parts.length == 7) {
+					User user = new User(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]);
+					users.add(user);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void saveUsersToFile() {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+			for (User user : users) {
+				writer.write(user.getUserId() + "," + user.getName() + "," + user.getEmail() + "," + user.getPassword()
+						+ "," + user.getBloodType() + "," + user.getDateOfBirth() + "," + user.getPhoneNumber());
+				writer.newLine();
+			}
+			System.out.println("Dữ liệu đã được ghi vào file " + FILE_NAME);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void register() {
+		users.add(this);
+		saveUsersToFile();
+	}
+
+	public static void deleteUser(User user) {
+		users.remove(user);
+		saveUsersToFile();
+	}
+
+	public static User login(String email, String password) {
+		for (User user : users) {
+			if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	public static String getFileName() {
+		return FILE_NAME;
 	}
 
 	public void setUserId(String userId) {
@@ -127,7 +147,4 @@ public class User {
 		User.users = users;
 	}
 
-	public static List<User> getUsers() {
-		return users;
-	}
 }
