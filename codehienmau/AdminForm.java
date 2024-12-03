@@ -22,24 +22,24 @@ public class AdminForm extends JFrame {
 
 	public AdminForm() {
 		setTitle("Quản lý Admin");
-		setSize(600, 400);
+		setSize(800, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 
-		// Bảng JTable
+		// Bảng_JTable
 		String[] columnNames = { "STT", "Tên", "Ngày sinh", "Nhóm máu", "Số điện thoại" };
 		tableModel = new DefaultTableModel(columnNames, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return false; // Không cho phép chỉnh sửa ô trong bảng
+				return false; // Không_cho_phép_chỉnh_sửa_ô_trong_bảng
 			}
 		};
 		userTable = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(userTable);
 		add(scrollPane, BorderLayout.CENTER);
 
-		// Panel nút chức năng
+		// Panel_nút_chức_năng
 		JPanel buttonPanel = new JPanel();
 
 		JButton deleteButton = new JButton("Xóa");
@@ -84,8 +84,8 @@ public class AdminForm extends JFrame {
 		int selectedRow = userTable.getSelectedRow();
 		if (selectedRow != -1) {
 			User selectedUser = UserManager.getUsers().get(selectedRow);
-			deletedUsersStack.push(selectedUser); // Lưu người dùng đã xóa vào stack
-			UserManager.getUsers().remove(selectedUser);
+			deletedUsersStack.push(selectedUser); // Lưu_người_dùng_đã_xóa_vào_stack
+			UserManager.deleteUser(selectedUser);
 			updateUserList();
 			JOptionPane.showMessageDialog(this, "Xóa thông tin thành công!");
 		}
@@ -94,7 +94,8 @@ public class AdminForm extends JFrame {
 	private void undoDeleteUser() {
 		if (!deletedUsersStack.isEmpty()) {
 			User lastDeletedUser = deletedUsersStack.pop();
-			UserManager.getUsers().add(lastDeletedUser);
+			User.getUsers().add(lastDeletedUser); // Thêm_người_dùng_từ_ngăn_xếp_trở_lại_danh_sách
+			User.saveUsersToFile(); // Upload_file
 			updateUserList();
 			JOptionPane.showMessageDialog(this, "Khôi phục thông tin thành công!");
 		} else {
@@ -114,6 +115,7 @@ public class AdminForm extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new HelloForm();
+		UserManager.loadUsersFromFile();
+		new AdminForm();
 	}
 }
