@@ -87,7 +87,7 @@ public class RegisForm extends JFrame {
 
 		JButton registerButton = new JButton("Đăng ký");
 		registerButton.setFont(new Font("Arial", Font.BOLD, 32));
-		registerButton.setPreferredSize(new Dimension(200, 100)); // Tăng kích thước nút
+		registerButton.setPreferredSize(new Dimension(200, 100)); // Tăng_kích_thước_nút
 		registerButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +115,7 @@ public class RegisForm extends JFrame {
 
 		JButton backButton = new JButton("Trở Về");
 		backButton.setFont(new Font("Arial", Font.BOLD, 32));
-		backButton.setPreferredSize(new Dimension(200, 100)); // Tăng kích thước nút
+		backButton.setPreferredSize(new Dimension(200, 100)); // Tăng_kích_thước_nút
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -134,5 +134,10 @@ public class RegisForm extends JFrame {
 		return userIdField.getText().isEmpty() || nameField.getText().isEmpty() || emailField.getText().isEmpty()
 				|| passwordField.getPassword().length == 0 || bloodTypeField.getText().isEmpty()
 				|| dateOfBirthField.getText().isEmpty() || phoneNumberField.getText().isEmpty();
+	}
+
+	public static void main(String[] args) {
+		UserManager.loadUsersFromFile();
+		new RegisForm();
 	}
 }
