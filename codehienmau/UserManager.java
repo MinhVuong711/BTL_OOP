@@ -56,4 +56,12 @@ public class UserManager {
 	public static List<User> getUsers() {
 		return User.getUsers();
 	}
+
+	public static void loadUsersFromFile() {
+		User.loadUsersFromFile();
+	}
+
+	public static void deleteUser(User user) {
+		User.deleteUser(user);
+	}
 }
