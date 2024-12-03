@@ -27,23 +27,23 @@ public class UserInfoForm extends JFrame {
 		setLayout(new BorderLayout());
 
 		JPanel inputPanel = new JPanel(new GridLayout(5, 2));
-		inputPanel.add(new JLabel("Tên:"));
-		nameField = new JTextField();
+		inputPanel.add(createLabel("Tên:"));
+		nameField = createTextField();
 		inputPanel.add(nameField);
 
-		inputPanel.add(new JLabel("Ngày sinh (yyyy-mm-dd):"));
-		dateOfBirthField = new JTextField();
+		inputPanel.add(createLabel("Ngày sinh (yyyy-mm-dd):"));
+		dateOfBirthField = createTextField();
 		inputPanel.add(dateOfBirthField);
 
-		inputPanel.add(new JLabel("Nhóm máu:"));
-		bloodTypeField = new JTextField();
+		inputPanel.add(createLabel("Nhóm máu:"));
+		bloodTypeField = createTextField();
 		inputPanel.add(bloodTypeField);
 
-		inputPanel.add(new JLabel("Số điện thoại:"));
-		phoneNumberField = new JTextField();
+		inputPanel.add(createLabel("Số điện thoại:"));
+		phoneNumberField = createTextField();
 		inputPanel.add(phoneNumberField);
 
-		// Vô hiệu hóa các trường nhập liệu khi khởi động
+		// Vô_hiệu_hóa_các_trường_nhập_liệu_khi_khởi_động
 		setFieldsEditable(false);
 
 		add(inputPanel, BorderLayout.CENTER);
@@ -55,7 +55,9 @@ public class UserInfoForm extends JFrame {
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				updateUser();
+				if (validateFields()) {
+					updateUser();
+				}
 			}
 		});
 		buttonPanel.add(saveButton);
@@ -99,6 +101,18 @@ public class UserInfoForm extends JFrame {
 		setVisible(true);
 	}
 
+	private JLabel createLabel(String text) {
+		JLabel label = new JLabel(text);
+		label.setFont(new Font("Arial", Font.BOLD, 21)); // Tăng_kích_thước_chữ
+		return label;
+	}
+
+	private JTextField createTextField() {
+		JTextField textField = new JTextField();
+		textField.setFont(new Font("Arial", Font.PLAIN, 21)); // Tăng_kích_thước_chữ
+		return textField;
+	}
+
 	private void setFieldsEditable(boolean editable) {
 		nameField.setEditable(editable);
 		dateOfBirthField.setEditable(editable);
@@ -106,23 +120,26 @@ public class UserInfoForm extends JFrame {
 		phoneNumberField.setEditable(editable);
 	}
 
+	private boolean validateFields() {
+		if (nameField.getText().isEmpty() || dateOfBirthField.getText().isEmpty() || bloodTypeField.getText().isEmpty()
+				|| phoneNumberField.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Không được để trống bất kỳ trường nào!");
+			return false;
+		}
+		return true;
+	}
+
 	private void updateUser() {
 		User loggedInUser = UserManager.getLoggedInUser();
 		if (loggedInUser != null) {
-			if (!nameField.getText().isEmpty()) {
-				loggedInUser.setName(nameField.getText());
-			}
-			if (!dateOfBirthField.getText().isEmpty()) {
-				loggedInUser.setDateOfBirth(dateOfBirthField.getText());
-			}
-			if (!bloodTypeField.getText().isEmpty()) {
-				loggedInUser.setBloodType(bloodTypeField.getText());
-			}
-			if (!phoneNumberField.getText().isEmpty()) {
-				loggedInUser.setPhoneNumber(phoneNumberField.getText());
-			}
+			loggedInUser.setName(nameField.getText());
+			loggedInUser.setDateOfBirth(dateOfBirthField.getText());
+			loggedInUser.setBloodType(bloodTypeField.getText());
+			loggedInUser.setPhoneNumber(phoneNumberField.getText());
+
 			setFieldsEditable(false);
 			JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!");
+			User.saveUsersToFile(); // Cập_nhật_file_sau_khi_chỉnh_sửa_thông_tin
 		}
 	}
 
@@ -137,6 +154,7 @@ public class UserInfoForm extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new HelloForm();
+		UserManager.loadUsersFromFile();
+		new UserInfoForm();
 	}
 }
