@@ -28,17 +28,17 @@ public class LoginForm extends JFrame {
 
 		JPanel inputPanel = new JPanel(new GridLayout(3, 2));
 		JLabel emailLabel = new JLabel("Email/Username:");
-		emailLabel.setFont(new Font("Arial", Font.PLAIN, 32));
+		emailLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		inputPanel.add(emailLabel);
 		emailField = new JTextField();
-		emailField.setFont(new Font("Arial", Font.PLAIN, 32));
+		emailField.setFont(new Font("Arial", Font.PLAIN, 30));
 		inputPanel.add(emailField);
 
 		JLabel passwordLabel = new JLabel("Mật khẩu:");
-		passwordLabel.setFont(new Font("Arial", Font.PLAIN, 32));
+		passwordLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		inputPanel.add(passwordLabel);
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Arial", Font.PLAIN, 32));
+		passwordField.setFont(new Font("Arial", Font.PLAIN, 30));
 		inputPanel.add(passwordField);
 
 		add(inputPanel, BorderLayout.CENTER);
@@ -47,7 +47,7 @@ public class LoginForm extends JFrame {
 
 		JButton loginButton = new JButton("Đăng nhập");
 		loginButton.setFont(new Font("Arial", Font.BOLD, 32));
-		loginButton.setPreferredSize(new Dimension(200, 100)); // Tăng kích thước nút
+		loginButton.setPreferredSize(new Dimension(200, 100)); // Tăng_kích_thước_nút
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -71,7 +71,7 @@ public class LoginForm extends JFrame {
 
 		JButton backButton = new JButton("Trở Về");
 		backButton.setFont(new Font("Arial", Font.BOLD, 32));
-		backButton.setPreferredSize(new Dimension(200, 100)); // Tăng kích thước nút
+		backButton.setPreferredSize(new Dimension(200, 100)); // Tăng_kích_thước_nút
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -84,5 +84,10 @@ public class LoginForm extends JFrame {
 		add(buttonPanel, BorderLayout.SOUTH);
 
 		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		UserManager.loadUsersFromFile();
+		new LoginForm();
 	}
 }
