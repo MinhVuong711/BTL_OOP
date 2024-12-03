@@ -21,13 +21,13 @@ public class HelloForm extends JFrame {
 		setLayout(new GridLayout(2, 1));
 
 		JLabel welcomeLabel = new JLabel("Babe đã có tài khoản chưa?", SwingConstants.CENTER);
-		welcomeLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Tăng cỡ chữ
+		welcomeLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Tăng_cỡ_chữ
 		add(welcomeLabel);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
 		JButton haveAccountButton = new JButton("Đã có");
-		haveAccountButton.setFont(new Font("Arial", Font.PLAIN, 32)); // Tăng cỡ chữ
+		haveAccountButton.setFont(new Font("Arial", Font.PLAIN, 32)); // Tăng_cỡ_chữ
 		haveAccountButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -38,7 +38,7 @@ public class HelloForm extends JFrame {
 		buttonPanel.add(haveAccountButton);
 
 		JButton noAccountButton = new JButton("Chưa có");
-		noAccountButton.setFont(new Font("Arial", Font.PLAIN, 32)); // Tăng cỡ chữ
+		noAccountButton.setFont(new Font("Arial", Font.PLAIN, 32)); // Tăng_cỡ_chữ
 		noAccountButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
